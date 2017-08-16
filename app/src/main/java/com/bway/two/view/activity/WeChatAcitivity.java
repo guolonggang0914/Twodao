@@ -2,7 +2,7 @@ package com.bway.two.view.activity;
 
 import android.app.Application;
 
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
 
 /**
  * @类的用途:
