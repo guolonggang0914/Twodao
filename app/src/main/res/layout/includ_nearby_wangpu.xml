@@ -5,6 +5,7 @@
     android:layout_height="@dimen/x476"
     android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:id="@+id/linear_biaoji1"
     android:layout_marginBottom="@dimen/x20">
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,19 +78,20 @@
         android:layout_marginRight="@dimen/x30"
         android:layout_marginLeft="@dimen/x30">
         <LinearLayout
-            android:layout_width="@dimen/x224"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingRight="@dimen/x20"
+            android:gravity="center"
             >
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/image_wp1"
                 android:layout_width="@dimen/x224"
-                android:layout_height="@dimen/x218"
-                zhy:borderRadius="@dimen/x10"
-                zhy:type="round"
+                android:layout_height="@dimen/x224"
                 android:src="@drawable/ceshi"
+
                 >
-            </com.bway.two.utils.ImageShowUtils.YuanjiaoImageView>
+            </ImageView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,19 +108,19 @@
                 android:textColor="#999999"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="@dimen/x224"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingRight="@dimen/x20"
+            android:gravity="center"
             >
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/image_wp2"
                 android:layout_width="@dimen/x224"
                 android:layout_height="@dimen/x218"
-                zhy:borderRadius="@dimen/x10"
-                zhy:type="round"
                 android:src="@drawable/ceshi"
                 >
-            </com.bway.two.utils.ImageShowUtils.YuanjiaoImageView>
+            </ImageView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,18 +137,20 @@
                 android:textColor="#999999"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="@dimen/x224"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
             >
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/image_wp3"
                 android:layout_width="@dimen/x224"
                 android:layout_height="@dimen/x218"
-                zhy:borderRadius="@dimen/x10"
-                zhy:type="round"
                 android:src="@drawable/ceshi"
                 >
-            </com.bway.two.utils.ImageShowUtils.YuanjiaoImageView>
+            </ImageView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

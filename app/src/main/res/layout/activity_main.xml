@@ -21,12 +21,14 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/x50"
         android:paddingRight="@dimen/x50"
-        >
+        android:layout_gravity="center"
+        android:gravity="center"
+        >44a3s
 
         <RadioButton
             android:id="@+id/radio_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/x88"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/home"
@@ -39,8 +41,8 @@
 
         <RadioButton
             android:id="@+id/radio_nearby"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/x88"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/nearby"
@@ -51,8 +53,8 @@
 
         <RadioButton
             android:id="@+id/radio_fanli"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/x88"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/fanli"
@@ -63,8 +65,8 @@
             />
         <RadioButton
             android:id="@+id/radio_wode"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/x88"
             android:layout_weight="1"
             android:button="@null"
             android:drawableTop="@drawable/wode"

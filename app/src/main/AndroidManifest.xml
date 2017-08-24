@@ -36,8 +36,6 @@
 
 
 
-
-
     <application
         android:name=".model.application.MainApplication"
         android:allowBackup="true"
@@ -77,6 +75,25 @@
         <activity android:name=".view.activity.GuanYuActivity"></activity>
         <activity android:name=".view.activity.CityCheckActivity"></activity>
         <activity android:name=".view.activity.QueryActivity"></activity>
+        <activity android:name=".view.activity.NearbyActivity" ></activity>
+        <!-- 注册SDKActivity -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tencent1105602574" /> <!-- 开放平台获取的APPID -->
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.tencent.connect.common.AssistActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>
