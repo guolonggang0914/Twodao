@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bway.two.model.application.MainApplication;
 import com.bway.two.utils.NetUtils.NetWorkUtils;
 
 /**
@@ -14,6 +15,26 @@ import com.bway.two.utils.NetUtils.NetWorkUtils;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
+private  boolean isLogin;
+    private String token;
+
+    public boolean isLogin() {
+        return isLogin;
+    }
+
+    public void setLogin(boolean login) {
+        isLogin = login;
+        MainApplication.getInstence().setLogin(login);
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+        MainApplication.getInstence().setToken(token);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

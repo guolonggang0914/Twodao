@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="登陆页面"
         android:textSize="@dimen/x40"
-        android:layout_marginLeft="@dimen/x120"
+        android:layout_marginLeft="@dimen/x280"
         android:layout_marginTop="@dimen/x10"
         />
     <TextView
@@ -51,7 +51,7 @@
         android:layout_height="@dimen/x100"
         android:text="微博登录"
         android:layout_gravity="center"
-        android:background="#DE5C25"
+        android:background="#9999"
         android:layout_marginTop="@dimen/x36"
         android:textSize="@dimen/x40"
         android:gravity="center"
@@ -74,7 +74,7 @@
         android:background="@drawable/phone"
         android:text="使用手机号登录"
         android:textSize="@dimen/x36"
-        android:textColor="#666666"
+        android:textColor="#999999"
         android:layout_gravity="center"
         android:id="@+id/login_phone"
         />

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F2F4F5"
+    tools:context="com.bway.two.view.activity.MessJiLuActivity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/x80"
+    android:orientation="horizontal"
+    android:background="#ffffff"
+    >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x20"
+        android:layout_marginTop="@dimen/x20"
+        android:id="@+id/jilu_fh"
+        android:src="@drawable/ic_browser_nav_back"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="消费记录"
+        android:textSize="@dimen/x40"
+        android:padding="8dp"
+        android:layout_marginLeft="@dimen/x170"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/tianjiabangzhu"
+        android:layout_marginLeft="@dimen/x200"
+        android:layout_marginTop="@dimen/x23"
+        android:id="@+id/jilu_bang"
+        />
+</LinearLayout>
+</LinearLayout>

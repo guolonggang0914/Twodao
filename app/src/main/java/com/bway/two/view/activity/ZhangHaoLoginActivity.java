@@ -1,7 +1,10 @@
 package com.bway.two.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
@@ -14,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bway.two.R;
+import com.bway.two.model.application.MainApplication;
 import com.bway.two.model.base.BaseActivity;
-import com.bway.two.model.bean.FirstEvent;
 import com.bway.two.model.bean.LoginBean;
 import com.bway.two.presenter.LoginPresenter;
 import com.bway.two.view.IMview.IMLoginTwo;
@@ -49,7 +52,6 @@ public class ZhangHaoLoginActivity extends BaseActivity implements View.OnClickL
     private String url = "http://123.57.33.185:8088/user/login";
     private Map<String, Object> map = new HashMap<>();
     private static final String TAG = "ZhangHaoLoginActivity";
-    private android.app.FragmentManager fragmentManager;
 
     @Override
     public int getLayout() {
@@ -65,8 +67,10 @@ public class ZhangHaoLoginActivity extends BaseActivity implements View.OnClickL
     public void initData() {
         zhanghaoFh.setOnClickListener(this);
         zhanghaoLogin.setOnClickListener(this);
+        zhanghaoWangjipwd.setOnClickListener(this);
         presenter = new LoginPresenter(this);
         presenter.onAttach(this);
+
     }
 
 
@@ -91,8 +95,10 @@ public class ZhangHaoLoginActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(ZhangHaoLoginActivity.this, "参数不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                EventBus.getDefault().post(new FirstEvent(phone));
-                finish();
+                break;
+            case R.id.zhanghao_wangjipwd:
+                startActivity(new Intent(ZhangHaoLoginActivity.this,WangJiPwdActivity.class));
+                break;
 
         }
     }
@@ -103,8 +109,26 @@ public class ZhangHaoLoginActivity extends BaseActivity implements View.OnClickL
         LoginBean.ObjectBean bean = loginBean.getObject();
         Log.i(TAG, "onSucceed: " + s);
         String token = bean.getToken();
+        String nickname = bean.getNickname();
+        String phone = bean.getPhone();
+
+        if (loginBean.getCode().equals("1000")) {
+            Toast.makeText(ZhangHaoLoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(loginBean);
+            MainApplication.getInstence().setLogin(true);
+            MainApplication.getInstence().setUserName(nickname);
+            MainApplication.getInstence().setUserPhone(phone);
+            MainApplication.getInstence().setToken(token);
+            finish();
+
+        } else {
+            Toast.makeText(ZhangHaoLoginActivity.this, "账号密码有误", Toast.LENGTH_SHORT).show();
+        }
+
         //69f7a6c8de0ef5c9c8d47f7570137db9
         Log.i(TAG, "onSucceed: " + token);
+        Log.i(TAG, "onSucceed: " + token);
+        Log.i(TAG, "onSucceed: " + nickname);
 
     }
 
