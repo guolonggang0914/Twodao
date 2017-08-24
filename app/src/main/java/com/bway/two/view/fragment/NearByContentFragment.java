@@ -1,20 +1,21 @@
 package com.bway.two.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bway.two.R;
 import com.bway.two.model.bean.NearbyMessage;
-import com.bway.two.view.activity.NearbyActivity;
 import com.bway.two.view.adapter.ContentItemdapter;
 
 import java.util.ArrayList;
@@ -39,6 +40,9 @@ public class NearByContentFragment extends Fragment implements ContentItemdapter
 
     private List<NearbyMessage> messageList = new ArrayList<>();
     private ContentItemdapter adapter;
+    private ViewPager vp;
+    private LinearLayout linearLayout;
+    private TextView txtName,txtAdr,txtJuli;
 
     @Nullable
     @Override
@@ -57,7 +61,7 @@ public class NearByContentFragment extends Fragment implements ContentItemdapter
 
     private void initData() {
         for (int i = 0; i < 20; i++) {
-            messageList.add(new NearbyMessage("小可爱西点",45+i,25,100));
+            messageList.add(new NearbyMessage("小可爱西点"+i,45+i,25,100));
         }
         adapter = new ContentItemdapter(getActivity(),messageList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
@@ -81,13 +85,26 @@ public class NearByContentFragment extends Fragment implements ContentItemdapter
         super.onDestroyView();
         unbinder.unbind();
     }
-
+    public void setOnClickListener(ViewPager vp, LinearLayout linearLayout, TextView txtName, TextView txtAdr, TextView txtJuli){
+        this.vp = vp;
+        this.linearLayout = linearLayout;
+        this.txtAdr = txtAdr;
+        this.txtJuli = txtJuli;
+        this.txtName = txtName;
+    }
     @Override
     public void onItemListener(View view, int positon) {
         Toast.makeText(getActivity(),"--",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), NearbyActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+//        Intent intent = new Intent(getActivity(), NearbyActivity.class);
+//        startActivity(intent);
+//        getActivity().finish();
+//        getActivity().finish();
+        vp.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
+        NearbyMessage nearbyMessage = messageList.get(positon);
+        txtName.setText(nearbyMessage.getName());
+        txtJuli.setText(nearbyMessage.getJuli()+"");
+
 
     }
 }

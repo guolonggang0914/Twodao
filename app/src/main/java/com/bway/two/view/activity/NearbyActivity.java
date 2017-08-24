@@ -1,6 +1,7 @@
 package com.bway.two.view.activity;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -55,6 +56,10 @@ public class NearbyActivity extends BaseActivity {
     TextView txtNearbyName;
     @BindView(R.id.ralat_biaoji)
     LinearLayout relate;
+    @BindView(R.id.txt_nearby_adr)
+    TextView txtNearbyAdr;
+    @BindView(R.id.txt_nearby_juli)
+    TextView txtNearbyJuli;
     private boolean isFirstLocation = true;
 
     public LocationClient mLocationClient = null;
@@ -94,6 +99,11 @@ public class NearbyActivity extends BaseActivity {
         //开始定位
         mLocationClient.start();
     }
+
+    public void setViewListener() {
+
+    }
+
     private void initTablayout() {
 
         titles = new ArrayList<>();
@@ -105,11 +115,16 @@ public class NearbyActivity extends BaseActivity {
         titles.add("全部");
         tabNearby.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
 
-        NearByContentFragment fr1 = NearByContentFragment.getInstense(lon,lat,1);
-        NearByContentFragment fr2 = NearByContentFragment.getInstense(lon,lat,7);
-        NearByContentFragment fr3 = NearByContentFragment.getInstense(lon,lat,5);
-        NearByContentFragment fr4 = NearByContentFragment.getInstense(lon,lat,2);
-        NearByContentFragment fr5 = NearByContentFragment.getInstense(lon,lat,-1);
+        NearByContentFragment fr1 = NearByContentFragment.getInstense(lon, lat, 1);
+        fr1.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        NearByContentFragment fr2 = NearByContentFragment.getInstense(lon, lat, 7);
+        fr2.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        NearByContentFragment fr3 = NearByContentFragment.getInstense(lon, lat, 5);
+        fr3.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        NearByContentFragment fr4 = NearByContentFragment.getInstense(lon, lat, 2);
+        fr4.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        NearByContentFragment fr5 = NearByContentFragment.getInstense(lon, lat, -1);
+        fr5.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
         fragments.add(fr1);
         fragments.add(fr2);
         fragments.add(fr3);
@@ -125,19 +140,23 @@ public class NearbyActivity extends BaseActivity {
         tabNearby.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 relate.setVisibility(View.GONE);
                 vpNearby.setVisibility(View.VISIBLE);
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
+                relate.setVisibility(View.GONE);
+                vpNearby.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+                relate.setVisibility(View.GONE);
+                vpNearby.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -151,7 +170,7 @@ public class NearbyActivity extends BaseActivity {
      * 添加marker
      */
     private void setMarker() {
-        Log.v("pcw","setMarker : lat : "+ lat+" lon : " + lon);
+        Log.v("pcw", "setMarker : lat : " + lat + " lon : " + lon);
         //定义Maker坐标点
         LatLng point = new LatLng(lat, lon);
         //生成一个TextView用户在地图中显示InfoWindow
@@ -177,8 +196,8 @@ public class NearbyActivity extends BaseActivity {
      * 设置中心点
      */
     private void setUserMapCenter() {
-        Log.v("pcw","setUserMapCenter : lat : "+ lat+" lon : " + lon);
-        LatLng cenpt = new LatLng(lat,lon);
+        Log.v("pcw", "setUserMapCenter : lat : " + lat + " lon : " + lon);
+        LatLng cenpt = new LatLng(lat, lon);
         //定义地图状态
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(cenpt)
@@ -190,15 +209,16 @@ public class NearbyActivity extends BaseActivity {
         mBaiduMap.setMapStatus(mMapStatusUpdate);
 
     }
+
     /**
      * 配置定位参数
      */
-    private void initLocation(){
+    private void initLocation() {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy
         );//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=1000;
+        int span = 1000;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -209,6 +229,13 @@ public class NearbyActivity extends BaseActivity {
         option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤gps仿真结果，默认需要
         mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 
     /**
@@ -282,12 +309,12 @@ public class NearbyActivity extends BaseActivity {
             lon = location.getLongitude();
             name = location.getAddrStr();
             //这个判断是为了防止每次定位都重新设置中心点和marker
-            if(isFirstLocation){
+            if (isFirstLocation) {
                 isFirstLocation = false;
                 setMarker();
                 setUserMapCenter();
             }
-            Log.v("pcw","lat : " + lat+" lon : " + lon);
+            Log.v("pcw", "lat : " + lat + " lon : " + lon);
             Log.i("BaiduLocationApiDem", sb.toString());
         }
 
@@ -325,6 +352,10 @@ public class NearbyActivity extends BaseActivity {
         super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
         mapView.onPause();
+    }
+
+    interface ViewListener {
+        void viewh(TextView txtName, TextView txtAdr, TextView txtJuli);
     }
 }
 
