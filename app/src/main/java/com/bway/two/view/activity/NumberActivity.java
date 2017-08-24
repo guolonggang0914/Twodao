@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.bway.two.R;
 import com.bway.two.model.base.BaseActivity;
-import com.bway.two.model.bean.FirstEvent;
 import com.bway.two.model.bean.RegisterBean;
 import com.bway.two.presenter.RegisterPresenter;
 import com.bway.two.view.IMview.IMLogin;
@@ -110,7 +109,7 @@ public class NumberActivity extends BaseActivity implements View.OnClickListener
                     Toast.makeText(NumberActivity.this,"参数不能为空",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                EventBus.getDefault().post(new FirstEvent(phone));
+
                 finish();
                 break;
         }
@@ -163,6 +162,7 @@ public class NumberActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onSucceed(RegisterBean registerBean, int code) {
+
         if (code==MESSAGE){
             if (registerBean.getCode().equals("2006")){
                 String code1 = registerBean.getDescirption();
@@ -178,6 +178,7 @@ public class NumberActivity extends BaseActivity implements View.OnClickListener
         if (code==REGISTER){
             if (registerBean.getCode().equals("1000")){
                 Toast.makeText(NumberActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
+//                EventBus.getDefault().post(registerBean);
             }else {
                 Toast.makeText(NumberActivity.this,"手机号或验证码错误",Toast.LENGTH_SHORT).show();
             }
@@ -193,4 +194,5 @@ public class NumberActivity extends BaseActivity implements View.OnClickListener
     public void checkInfo(boolean isNull, String msg) {
 
     }
+
 }

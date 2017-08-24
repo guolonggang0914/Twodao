@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_marginTop="@dimen/x20"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x100"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:id="@+id/ka_item_image"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_marginLeft="@dimen/x28"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中国银行(0605)"
+            android:textSize="@dimen/x28"
+            android:layout_marginLeft="@dimen/x50"
+            android:layout_gravity="center"
+            android:textColor="#333333"
+android:id="@+id/ka_item_name"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="解除绑定 >"
+            android:textSize="@dimen/x28"
+            android:textColor="#333333"
+            android:layout_gravity="center"
+            android:id="@+id/ka_item_bangding"
+            android:layout_marginLeft="@dimen/x160"
+            />
+    </LinearLayout>
+</LinearLayout>

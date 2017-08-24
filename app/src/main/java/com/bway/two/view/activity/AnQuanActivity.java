@@ -6,13 +6,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bway.two.R;
+import com.bway.two.model.application.MainApplication;
 import com.bway.two.model.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AnQuanActivity extends BaseActivity implements View.OnClickListener {
-
 
     @BindView(R.id.anquan_fh)
     ImageView anquanFh;
@@ -40,16 +40,23 @@ public class AnQuanActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initData() {
-anquanFh.setOnClickListener(this);
+        anquanFh.setOnClickListener(this);
+        tuichu.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.anquan_fh:
+                finish();
+                break;
+            case R.id.tuichu:
+                MainApplication.getInstence().setLogin(false);
                 finish();
                 break;
 
         }
     }
+
+
 }
