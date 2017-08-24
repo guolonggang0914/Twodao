@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  * 2017/8/11.
  */
 
-public class ContentFragment extends Fragment implements ContentItemdapter.ItemListener {
+public class NearByContentFragment extends Fragment implements ContentItemdapter.ItemListener {
 
     Unbinder unbinder;
     @BindView(R.id.home_recycler_view)
@@ -66,8 +66,8 @@ public class ContentFragment extends Fragment implements ContentItemdapter.ItemL
         adapter.setOnItemClickListener(this);
     }
 
-    public static ContentFragment getInstense(double longitude,double latitude,int categoryId) {
-        ContentFragment homeFragmentVp = new ContentFragment();
+    public static NearByContentFragment getInstense(double longitude, double latitude, int categoryId) {
+        NearByContentFragment homeFragmentVp = new NearByContentFragment();
         Bundle bundle = new Bundle();
         bundle.putDouble("longitude",longitude);
         bundle.putDouble("latitude",latitude);
@@ -87,5 +87,7 @@ public class ContentFragment extends Fragment implements ContentItemdapter.ItemL
         Toast.makeText(getActivity(),"--",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), NearbyActivity.class);
         startActivity(intent);
+        getActivity().finish();
+
     }
 }

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,15 +38,23 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bway.two.R;
+import com.bway.two.model.bean.TuijianData;
 import com.bway.two.model.map.MapBiaoji;
+import com.bway.two.presenter.NearbyPresenter;
+import com.bway.two.utils.ImageShowUtils.ImageUtils;
+import com.bway.two.view.IMview.IMNearby;
 import com.bway.two.view.adapter.ContentPageAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+
 
 /**
  * autor: 李金涛.
@@ -53,7 +62,7 @@ import butterknife.Unbinder;
  */
 
 
-public class NearbyFragment extends Fragment {
+public class NearbyFragment extends Fragment implements IMNearby<TuijianData> {
 
     Unbinder unbinder;
 
@@ -65,8 +74,12 @@ public class NearbyFragment extends Fragment {
     ViewPager fragmentHomeViewpager2;
     @BindView(R.id.nestedScrollView)
     NestedScrollView mNestedScrollView;
- /*   @BindView(R.id.image_dingwei)
-    MyImageView imageDingwei;*/
+    @BindView(R.id.image_wp1)
+    ImageView imageWp1;
+    @BindView(R.id.image_wp2)
+    ImageView imageWp2;
+    @BindView(R.id.image_wp3)
+    ImageView imageWp3;
 
     private View view;
 
@@ -81,6 +94,10 @@ public class NearbyFragment extends Fragment {
     String name;
     private double lat;
     private double lon;
+    private String url = "http://123.57.33.185:8088/listRecommendPositions";
+    private String titleUrl = "http://123.57.33.185:8088/listCategories";
+    private Map<String,Object> map = new HashMap<>();
+    private Map<String,Object> titleMap = new HashMap<>();
 
     public LocationClient mLocationClient = null;
     public MyLocationListener mMyLocationListener = null;
@@ -106,15 +123,32 @@ public class NearbyFragment extends Fragment {
     }
 
     private void initTablayout() {
+        NearbyPresenter presenter = new NearbyPresenter(getActivity());
+        presenter.attachPresenter(this);
+        map.put("type",1);
+        map.put("pageSize",3);
+        presenter.loadUrlBypost(url,map);
+
+
         titles.add("美食");
         titles.add("休闲娱乐");
         titles.add("生活服务");
         titles.add("酒店");
         titles.add("全部");
         fragmentHomeTablayout.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
+
+        ContentFragment fr1 = ContentFragment.getInstense(lon,lat,1);
+        ContentFragment fr2 = ContentFragment.getInstense(lon,lat,7);
+        ContentFragment fr3 = ContentFragment.getInstense(lon,lat,5);
+        ContentFragment fr4 = ContentFragment.getInstense(lon,lat,2);
+        ContentFragment fr5 = ContentFragment.getInstense(lon,lat,-1);
+        fragments.add(fr1);
+        fragments.add(fr2);
+        fragments.add(fr3);
+        fragments.add(fr4);
+        fragments.add(fr5);
+
         for (int i = 0; i < titles.size(); i++) {
-            ContentFragment fr = ContentFragment.getInstense("hah");
-            fragments.add(fr);
             fragmentHomeTablayout.addTab(fragmentHomeTablayout.newTab().setText(titles.get(i)));//添加tab选项卡
         }
         mNestedScrollView.setFillViewport(true);
@@ -122,6 +156,20 @@ public class NearbyFragment extends Fragment {
         mAdapter = new ContentPageAdapter(getChildFragmentManager(), fragments, titles);
         fragmentHomeViewpager2.setAdapter(mAdapter);//给ViewPager设置适配器
     }
+
+    @Override
+    public void onSucceed(TuijianData tuijianData) {
+        List<TuijianData.ObjectBean.ListBean> list = tuijianData.getObject().getList();
+            ImageUtils.newInstance().YuanjiaoImage(getActivity(),list.get(1).getPicture(),imageWp1);
+            ImageUtils.newInstance().YuanjiaoImage(getActivity(),list.get(1).getPicture(),imageWp2);
+            ImageUtils.newInstance().YuanjiaoImage(getActivity(),list.get(2).getPicture(),imageWp3);
+    }
+
+    @Override
+    public void onError(int code, String err) {
+
+    }
+
 
     private void initMap() {
 
@@ -308,6 +356,7 @@ public class NearbyFragment extends Fragment {
         baiduMap.setMapStatus(mMapStatusUpdate);
 
     }
+
 
     /**
      * 实现定位监听 位置一旦有所改变就会调用这个方法

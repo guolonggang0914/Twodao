@@ -22,19 +22,24 @@ import java.util.List;
  */
 
 
-public class ContentItemdapter extends RecyclerView.Adapter<ContentItemdapter.ViewHoler> {
+public class ContentItemdapter extends RecyclerView.Adapter<ContentItemdapter.ViewHoler> implements View.OnClickListener {
 
     private Context context;
     private List<NearbyMessage> messageList ;
+    private ItemListener cliener;
+    private View view;
 
     public ContentItemdapter(Context context, List<NearbyMessage> messageList) {
         this.context = context;
         this.messageList = messageList;
     }
+    public void setOnItemClickListener(ItemListener cliener){
+        this.cliener = cliener;
+    }
 
     @Override
     public ViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = View.inflate(context, R.layout.nearby_meishi_item, null);
+        view = View.inflate(context, R.layout.nearby_meishi_item, null);
         ViewHoler viewHoler = new ViewHoler(view);
         return viewHoler;
     }
@@ -47,7 +52,8 @@ public class ContentItemdapter extends RecyclerView.Adapter<ContentItemdapter.Vi
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.RED);
         spannableString.setSpan(colorSpan, 3, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
-
+        view.setTag(position);
+        view.setOnClickListener(this);
 
         holder.jifen.setText(spannableString);
         holder.juli.setText("安贞距您<"+nearbyMessage.getJuli());
@@ -60,6 +66,13 @@ public class ContentItemdapter extends RecyclerView.Adapter<ContentItemdapter.Vi
         return messageList.size();
     }
 
+    @Override
+    public void onClick(View view) {
+        int i = Integer.parseInt(view.getTag().toString());
+        cliener.onItemListener(view,i);
+    }
+
+
     class ViewHoler extends RecyclerView.ViewHolder{
 
         TextView jifen,juli,money,name;
@@ -70,5 +83,8 @@ public class ContentItemdapter extends RecyclerView.Adapter<ContentItemdapter.Vi
             money = itemView.findViewById(R.id.txt_money);
             name = itemView.findViewById(R.id.txt_meishi_name);
         }
+    }
+    public interface ItemListener{
+        void onItemListener(View view,int positon);
     }
 }

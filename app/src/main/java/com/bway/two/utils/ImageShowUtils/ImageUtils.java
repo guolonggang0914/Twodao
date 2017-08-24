@@ -35,4 +35,20 @@ public class ImageUtils {
             Toast.makeText(context,"图片url错误",Toast.LENGTH_SHORT).show();
         }
     }
+    public void YuanjiaoImage(final Context context, String url, final ImageView imageView){
+        if(url!=null) {
+     /*       Glide.with(context).load(url).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageView) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(context.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    imageView.setImageDrawable(circularBitmapDrawable);
+                }
+            });*/
+            Glide.with(context).load(url).transform(new GlideRoundTransform(context, 20)).into(imageView);
+        }else{
+            Toast.makeText(context,"图片url错误",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -74,6 +74,8 @@
         <activity android:name=".view.activity.AnQuanActivity" />
         <activity android:name=".view.activity.GuanYuActivity"></activity>
         <activity android:name=".view.activity.CityCheckActivity"></activity>
+        <activity android:name=".view.activity.QueryActivity"></activity>
+        <activity android:name=".view.activity.NearbyActivity" ></activity>
         <!-- 注册SDKActivity -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
