@@ -5,7 +5,7 @@ import com.bway.two.model.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
-
+  //
     @Override
     public int getLayout() {
         return R.layout.activity_main;
