@@ -1,7 +1,8 @@
 package com.bway.two.model.application;
 
 import android.app.Application;
-import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.bway.two.model.net.okhttp.HttpManager;

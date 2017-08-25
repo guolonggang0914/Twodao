@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.baidu.platform.comapi.map.E;
 import com.bway.two.R;
 import com.bway.two.model.bean.Foods;
+import com.bway.two.utils.ImageShowUtils.ImageUtils;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class HomeGvAdapter extends BaseAdapter {
             Viewholder.image = convertView.findViewById(R.id.gv_image);
             Viewholder.text = convertView.findViewById(R.id.gv_text);
             Viewholder.text.setText(mList.get(position).getMessage());
-            Viewholder.image.setImageResource(mList.get(position).getImageid());
+            ImageUtils.newInstance().disPlay(context, mList.get(position).getImageid(), Viewholder.image);
             convertView.setTag(Viewholder);
         } else {
             Viewholder = (ViewHolder) convertView.getTag();

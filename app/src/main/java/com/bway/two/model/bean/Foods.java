@@ -7,9 +7,9 @@ package com.bway.two.model.bean;
 
 public class Foods {
     private String message;
-    private int imageid;
+    private String imageid;
 
-    public Foods(String message, int imageid) {
+    public Foods(String message, String imageid) {
         this.message = message;
         this.imageid = imageid;
     }
@@ -22,11 +22,11 @@ public class Foods {
         this.message = message;
     }
 
-    public int getImageid() {
+    public String getImageid() {
         return imageid;
     }
 
-    public void setImageid(int imageid) {
+    public void setImageid(String imageid) {
         this.imageid = imageid;
     }
 }

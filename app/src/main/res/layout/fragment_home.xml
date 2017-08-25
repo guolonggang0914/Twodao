@@ -47,23 +47,24 @@
                         android:layout_height="10dp"
                         android:background="#f2f4f5" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="167dp"
-                        android:orientation="vertical">
+                        android:layout_height="@dimen/x338">
 
                         <android.support.v4.view.ViewPager
                             android:id="@+id/fragment_home_viewpager"
+                            android:paddingTop="@dimen/x37"
+                            android:paddingBottom="@dimen/x19"
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:paddingTop="10dp"></android.support.v4.view.ViewPager>
+                            android:layout_height="match_parent">
+                        </android.support.v4.view.ViewPager>
 
                         <RadioGroup
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="9dp"
+                            android:layout_marginBottom="@dimen/x10"
                             android:gravity="center"
+                            android:layout_alignParentBottom="true"
                             android:orientation="horizontal">
 
                             <RadioButton
@@ -82,7 +83,7 @@
                                 android:button="@null" />
 
                         </RadioGroup>
-                    </LinearLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -224,7 +225,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 banners:tabBackground="@drawable/tablayout_selector"
-                banners:tabIndicatorHeight="0dp"></android.support.design.widget.TabLayout>
+                banners:tabIndicatorHeight="0dp">
+            </android.support.design.widget.TabLayout>
 
 
         </android.support.design.widget.AppBarLayout>

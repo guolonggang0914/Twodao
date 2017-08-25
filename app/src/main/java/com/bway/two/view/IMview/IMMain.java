@@ -7,5 +7,6 @@ package com.bway.two.view.IMview;
 
 
 public interface IMMain<T> {
-
+    void onSucceed(T t);
+    void onError(int code,String err);
 }

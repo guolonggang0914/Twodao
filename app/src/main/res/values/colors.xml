@@ -8,4 +8,9 @@
     <color name="colorHome">#F2F4F5</color>
     <color name="colorRed">#c20000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="gray">#bdbdbd</color>
+    <color name="black">#000000</color>
+    <color name="keyTextColor">#424242</color>
+    <color name="green">#00ff00</color>
+    <color name="red">#ff0000</color>
 </resources>

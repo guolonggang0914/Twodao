@@ -9,7 +9,7 @@
     tools:context="com.bway.two.view.activity.CityCheckActivity">
 
     <LinearLayout
-        android:layout_width="@dimen/x750"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/x87"
         android:background="#fff"
         android:orientation="horizontal">
@@ -34,7 +34,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/x30"
         android:layout_marginRight="@dimen/x30"
@@ -49,20 +49,21 @@
             android:layout_marginTop="@dimen/x14"
             android:src="@mipmap/ic_home_nav_search_normal" />
 
-        <TextView
+        <EditText
             android:layout_width="@dimen/x144"
             android:layout_height="@dimen/x24"
             android:layout_marginBottom="@dimen/x13"
             android:layout_marginLeft="@dimen/x19"
             android:layout_marginRight="@dimen/x264"
             android:layout_marginTop="@dimen/x14"
-            android:text="输入城市名称"
+            android:hint="输入城市名称"
+            android:background="@null"
             android:textColor="#999999"
             android:textSize="@dimen/x20" />
     </LinearLayout>
 
     <TextView
-        android:layout_width="@dimen/x750"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/x90"
         android:layout_marginTop="@dimen/x18"
         android:background="#fff"
@@ -73,174 +74,47 @@
         android:textSize="@dimen/x28" />
 
     <LinearLayout
-        android:layout_width="@dimen/x750"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/x64"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="@dimen/x110"
-            android:layout_height="@dimen/x27"
-            android:layout_marginBottom="@dimen/x8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/x30"
-            android:layout_marginTop="@dimen/x29"
+            android:layout_gravity="center"
             android:text="热门城市"
             android:textColor="#999999"
-            android:textSize="@dimen/x25" />
+            android:textSize="@dimen/x28" />
 
         <TextView
-            android:layout_width="@dimen/x531"
+            android:layout_width="@dimen/x530"
             android:layout_height="@dimen/x1"
-            android:layout_marginLeft="@dimen/x29"
-            android:layout_marginRight="@dimen/x49"
-            android:layout_marginTop="@dimen/x43"
-            android:textColor="#999999" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x50"
+            android:textColor="#dddddd" />
     </LinearLayout>
 
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="@dimen/x750"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_width="@dimen/x750"
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <RelativeLayout
-                android:id="@+id/rela1"
-                android:layout_width="@dimen/x750"
-                android:layout_height="@dimen/x363">
-
-                <TextView
-                    android:id="@+id/one"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/x8"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="北京市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/two"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x8"
-                    android:layout_toRightOf="@+id/one"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="上海市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/three"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x8"
-                    android:layout_toRightOf="@+id/two"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="成都市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/four"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/one"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/x20"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="杭州市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/fine"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/two"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x20"
-                    android:layout_toRightOf="@+id/four"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="郑州"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/six"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/three"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x20"
-                    android:layout_toRightOf="@+id/fine"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="武汉市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/seven"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/four"
-                    android:layout_marginLeft="@dimen/x30"
-                    android:layout_marginTop="@dimen/x18"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="天津市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/eight"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/fine"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x18"
-                    android:layout_toRightOf="@+id/seven"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="太原市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-
-                <TextView
-                    android:id="@+id/nine"
-                    android:layout_width="@dimen/x211"
-                    android:layout_height="@dimen/x91"
-                    android:layout_below="@+id/four"
-                    android:layout_marginLeft="@dimen/x19"
-                    android:layout_marginTop="@dimen/x18"
-                    android:layout_toRightOf="@+id/eight"
-                    android:background="#fff"
-                    android:gravity="center"
-                    android:text="广州市"
-                    android:textColor="#333333"
-                    android:textSize="@dimen/x28" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="@dimen/x750"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rela1">
 
                 <se.emilsjolander.stickylistheaders.StickyListHeadersListView
                     android:id="@+id/slv_address"
-                    android:layout_width="@dimen/x750"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="none">
 

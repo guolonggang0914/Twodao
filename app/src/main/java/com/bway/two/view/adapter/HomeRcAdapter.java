@@ -27,6 +27,12 @@ public class HomeRcAdapter extends RecyclerView.Adapter<HomeRcAdapter.ViewHolder
 
     private Context context;
     private List<RcData> mList;
+    private OnItemListener onItemListener;
+    private View view;
+
+    public void setOnItemListener(OnItemListener onItemListener) {
+        this.onItemListener = onItemListener;
+    }
 
     public HomeRcAdapter(Context context, List<RcData> mList) {
         this.context = context;
@@ -35,7 +41,7 @@ public class HomeRcAdapter extends RecyclerView.Adapter<HomeRcAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.fragment_home_rcitem, parent, false);
+        view = LayoutInflater.from(context).inflate(R.layout.fragment_home_rcitem, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -46,6 +52,7 @@ public class HomeRcAdapter extends RecyclerView.Adapter<HomeRcAdapter.ViewHolder
         holder.homeRcJifen.setText("" + (15 + position) +"%");
         holder.homeRcMoney.setText("￥"+ (45 + position) + "/人");
         holder.homeRcTitle.setText("味多美（安贞店）");
+        holder.itemView.setTag(position);
     }
 
     @Override
@@ -65,6 +72,16 @@ public class HomeRcAdapter extends RecyclerView.Adapter<HomeRcAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemListener.onItemLister(view, (Integer) view.getTag());
+                }
+            });
         }
+    }
+
+    public interface OnItemListener{
+        void onItemLister(View view, int position);
     }
 }

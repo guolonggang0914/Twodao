@@ -117,7 +117,7 @@ public class SlideBar extends View {
             paint.setTextSize(20);
             // 字符占的宽度
             float f = paint.measureText(letters[i]);
-            float xPos = 10  ;
+            float xPos = width/2 - f/2  ;
             float yPos = singleHeight * (i + 1);
             if (i == choose) {
                 paint.setColor(Color.parseColor("#c20000"));

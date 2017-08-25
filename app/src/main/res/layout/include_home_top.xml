@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/x89"
     android:background="#F2F4F5"
+    android:id="@+id/top_home"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -15,6 +16,7 @@
         android:background="@drawable/home_city"
         android:drawableRight="@drawable/xiala"
         android:gravity="center"
+        android:lines="1"
         android:text="北京"
         android:textColor="#333333"
         android:textSize="14sp" />
@@ -54,12 +56,12 @@
         android:background="@drawable/home_yuan"
         android:orientation="vertical">
 
-        <Button
+        <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:background="@drawable/xiaoxi" />
+            android:src="@drawable/xiaoxi" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,11 +74,11 @@
         android:background="@drawable/home_yuan"
         android:orientation="vertical">
 
-        <Button
+        <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:background="@drawable/saosao" />
+            android:src="@drawable/saosao" />
     </LinearLayout>
 </LinearLayout>

@@ -10,29 +10,42 @@ import android.widget.GridView;
 
 import com.bway.two.R;
 import com.bway.two.model.bean.Foods;
+import com.bway.two.model.bean.MostClass;
+import com.bway.two.model.net.okhttp.HttpManager;
+import com.bway.two.presenter.HomeListPresenter;
+import com.bway.two.view.IMview.IMMain;
+import com.bway.two.view.IMview.customcallback.EntityCallBack;
 import com.bway.two.view.adapter.HomeGvAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.R.id.list;
 
 /**
  * Created by 卢程
  * 2017/8/11.
  */
 
-public class HomeFragmentVp extends Fragment {
+public class HomeFragmentVp extends Fragment implements IMMain<MostClass> {
     @BindView(R.id.fragment_home_gridview)
     GridView mGridview;
     Unbinder unbinder;
-    private String url;
+    private String url = "http://123.57.33.185:8088/listCategories";
+    private int number;
+    private HomeListPresenter presenter;
+    private ArrayList<Foods> foodList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        url = getArguments().getString("url");
+        number = getArguments().getInt("url");
         View view = inflater.inflate(R.layout.fragment_home_vp, null);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -42,28 +55,21 @@ public class HomeFragmentVp extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
+        Map<String,Object> map = new HashMap<>();
+        map.put("type","10001");
+        map.put("pageNum",number);
+        presenter = new HomeListPresenter(this);
+        presenter.LoadMostList(url, map);
     }
 
     private void initData() {
-        ArrayList<Foods> list = new ArrayList<>();
-        list.add(new Foods("luccc", R.mipmap.food1));
-        list.add(new Foods("luccc", R.mipmap.food2));
-        list.add(new Foods("luccc", R.mipmap.food3));
-        list.add(new Foods("luccc", R.mipmap.food4));
-        list.add(new Foods("luccc", R.mipmap.food5));
-        list.add(new Foods("luccc", R.mipmap.food6));
-        list.add(new Foods("luccc", R.mipmap.food7));
-        list.add(new Foods("luccc", R.mipmap.food8));
-        list.add(new Foods("luccc", R.mipmap.food9));
-        list.add(new Foods("luccc", R.mipmap.food10));
-        HomeGvAdapter homeGvAdapter = new HomeGvAdapter(list, getActivity());
-        mGridview.setAdapter(homeGvAdapter);
+        foodList = new ArrayList<>();
     }
 
-    public static HomeFragmentVp getInstense(String url) {
+    public static HomeFragmentVp getInstense(int number) {
         HomeFragmentVp homeFragmentVp = new HomeFragmentVp();
         Bundle bundle = new Bundle();
-        bundle.putString("url", url);
+        bundle.putInt("url", number);
         homeFragmentVp.setArguments(bundle);
         return homeFragmentVp;
     }
@@ -72,5 +78,20 @@ public class HomeFragmentVp extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onSucceed(MostClass data) {
+        List<MostClass.ObjectBean.ListBean> list = data.getObject().getList();
+        for (int i = 0; i < list.size(); i++) {
+            foodList.add(new Foods(list.get(i).getCategoryName(),list.get(i).getPicture()));
+        }
+        HomeGvAdapter homeGvAdapter = new HomeGvAdapter(foodList, getActivity());
+        mGridview.setAdapter(homeGvAdapter);
+    }
+
+    @Override
+    public void onError(int code, String err) {
+
     }
 }

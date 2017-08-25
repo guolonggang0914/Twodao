@@ -1,5 +1,6 @@
 package com.bway.two.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bway.two.R;
+import com.bway.two.model.bean.ItemMessage;
 import com.bway.two.model.bean.RcData;
+import com.bway.two.view.activity.NearbyActivity;
 import com.bway.two.view.adapter.HomeRcAdapter;
 
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ public class HomeFragmentVp2 extends Fragment {
     RecyclerView mRecyclerView;
     private String url;
     private List<RcData> mList;
+    private ItemMessage itemMessage;
 
     @Nullable
     @Override
@@ -56,6 +61,23 @@ public class HomeFragmentVp2 extends Fragment {
         HomeRcAdapter adapter = new HomeRcAdapter(getContext(), mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(adapter);
+
+        adapter.setOnItemListener(new HomeRcAdapter.OnItemListener() {
+            @Override
+            public void onItemLister(View view, int position) {
+                Intent intent = new Intent(getContext(), NearbyActivity.class);
+                RcData rcData = mList.get(position);
+                if(itemMessage == null){
+                    itemMessage = new ItemMessage();
+                }
+                Toast.makeText(getContext(),""+position, Toast.LENGTH_SHORT).show();
+                itemMessage.setName("1504d" + position);
+                Bundle bundle = new Bundle();
+                bundle .putSerializable("home", itemMessage);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     public static HomeFragmentVp2 getInstense(String url) {
