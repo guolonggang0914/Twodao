@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:image="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="225dp">
+    android:layout_height="@dimen/x450">
 
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="44dp">
+        android:layout_height="@dimen/x88">
         <TextView
             android:text="附近旺铺"
             android:gravity="center"
@@ -16,8 +16,8 @@
         <RelativeLayout
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_width="44dp"
-            android:layout_height="44dp">
+            android:layout_width="@dimen/x88"
+            android:layout_height="@dimen/x88">
             <ImageView
                 android:id="@+id/nearby_map"
                 android:focusable="true"
@@ -34,28 +34,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/home_fujin1"
             android:layout_weight="1"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/nearby_sp1"
                 android:src="@mipmap/food8"
-                image:type="round"
-                image:borderRadius="8dp"
-                android:layout_width="112dp"
-                android:layout_height="109dp" />
+                android:layout_width="@dimen/x224"
+                android:layout_height="@dimen/x218" />
             <TextView
-                android:layout_marginTop="7dp"
+                android:id="@+id/nearby_name1"
+                android:layout_marginTop="@dimen/x14"
                 android:text="海友良品酒店"
                 android:textColor="#333333"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
-                android:layout_marginTop="7.5dp"
+                android:id="@+id/nearby_txt1"
+                android:layout_marginTop="@dimen/x15"
                 android:text="[安贞门]"
                 android:textColor="#999999"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -66,24 +70,27 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/nearby_sp2"
                 android:src="@mipmap/food10"
-                image:type="round"
-                image:borderRadius="8dp"
-                android:layout_width="112dp"
-                android:layout_height="109dp" />
+                android:layout_width="@dimen/x224"
+                android:layout_height="@dimen/x218" />
             <TextView
+                android:id="@+id/nearby_name2"
                 android:layout_marginTop="7dp"
                 android:text="苍山茶社"
                 android:textColor="#333333"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/nearby_txt2"
                 android:layout_marginTop="7.5dp"
                 android:text="[安贞门]"
                 android:textColor="#999999"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -93,24 +100,27 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <com.bway.two.utils.ImageShowUtils.YuanjiaoImageView
+            <ImageView
+                android:id="@+id/nearby_sp3"
                 android:src="@mipmap/food5"
-                image:type="round"
-                image:borderRadius="8dp"
-                android:layout_width="112dp"
-                android:layout_height="109dp" />
+                android:layout_width="@dimen/x224"
+                android:layout_height="@dimen/x218" />
             <TextView
+                android:id="@+id/nearby_name3"
                 android:layout_marginTop="7dp"
                 android:text="粗陶馆"
                 android:textColor="#333333"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/nearby_txt3"
                 android:layout_marginTop="7.5dp"
                 android:text="[安贞门]"
                 android:textColor="#999999"
                 android:textSize="14sp"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

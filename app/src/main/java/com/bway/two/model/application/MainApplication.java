@@ -1,6 +1,8 @@
 package com.bway.two.model.application;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.bway.two.model.net.okhttp.HttpManager;
@@ -18,9 +20,7 @@ public class MainApplication extends Application {
         super.onCreate();
         initManager();
         SDKInitializer.initialize(getApplicationContext());
-
     }
-
     private void initManager() {
         HttpManager.getInstance().init(new OkhttpEnginen());
     }

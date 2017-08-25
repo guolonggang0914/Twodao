@@ -2,6 +2,7 @@ package com.bway.two.view.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,36 +12,52 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bway.two.R;
+import com.bway.two.model.bean.ItemMessage;
+import com.bway.two.model.bean.NearShopping;
+import com.bway.two.presenter.HomeNearPresenter;
+import com.bway.two.utils.ImageShowUtils.ImageUtils;
 import com.bway.two.utils.ImageShowUtils.MyViewPager;
+import com.bway.two.utils.ImageShowUtils.YuanjiaoImageView;
+import com.bway.two.view.IMview.IMHome;
 import com.bway.two.view.activity.CityCheckActivity;
+import com.bway.two.view.activity.NearbyActivity;
 import com.bway.two.view.adapter.HomeVpAdapter;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static android.app.Activity.RESULT_OK;
+import static com.bway.two.presenter.RebatePresenter.TAG;
+
 /**
  * Created by 卢程
  * 2017/8/10.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener, IMHome {
 
     @BindView(R.id.fragment_home_search)
     LinearLayout mSearch;
@@ -69,16 +86,40 @@ public class HomeFragment extends Fragment {
     RadioButton gvRad2;
     @BindView(R.id.fragment_home_cityselector)
     TextView mCitySelector;
+    @BindView(R.id.top_home)
+    LinearLayout topHome;
+    @BindView(R.id.nearby_sp1)
+    ImageView nearbySp1;
+    @BindView(R.id.nearby_name1)
+    TextView nearbyName1;
+    @BindView(R.id.nearby_txt1)
+    TextView nearbyTxt1;
+    @BindView(R.id.nearby_sp2)
+    ImageView nearbySp2;
+    @BindView(R.id.nearby_name2)
+    TextView nearbyName2;
+    @BindView(R.id.nearby_txt2)
+    TextView nearbyTxt2;
+    @BindView(R.id.nearby_sp3)
+    ImageView nearbySp3;
+    @BindView(R.id.nearby_name3)
+    TextView nearbyName3;
+    @BindView(R.id.nearby_txt3)
+    TextView nearbyTxt3;
     private List<String> images;
     private List<Fragment> fragments;
     private List<Fragment> fragments2;
     private HomeVpAdapter vpAdapter;
+    private PopupWindow window;
+    private String nearUrl = "http://123.57.33.185:8088/listRecommendPositions";
+    private Intent intent;
+    private NearShopping o1;
+    private ItemMessage item ;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
@@ -89,7 +130,15 @@ public class HomeFragment extends Fragment {
         initView();
         loadBanner();
         loadViewpager();
+        loadNear();
         loadTabView();
+    }
+
+    private void loadNear() {
+        HomeNearPresenter nearPresenter = new HomeNearPresenter(this);
+        Map<String, Object> map = new HashMap<>();
+        map.put("type", 1);
+        nearPresenter.LoadMessage(nearUrl,map);
     }
 
     /**
@@ -111,8 +160,8 @@ public class HomeFragment extends Fragment {
      * 加载中间viewpager，内部Gridview
      */
     private void loadViewpager() {
-        fragments.add(HomeFragmentVp.getInstense("xy"));
-        fragments.add(HomeFragmentVp.getInstense("lc"));
+        fragments.add(HomeFragmentVp.getInstense(1));
+        fragments.add(HomeFragmentVp.getInstense(2));
         vpAdapter = new HomeVpAdapter(getActivity().getSupportFragmentManager(), fragments);
         mViewpager.setAdapter(vpAdapter);
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -170,11 +219,14 @@ public class HomeFragment extends Fragment {
             R.id.fragment_home_saosao,
             R.id.fragment_home_fuli,
             R.id.fragment_home_dadao,
+            R.id.nearby_sp1,
+            R.id.nearby_sp2,
+            R.id.nearby_sp3,
             R.id.nearby_map})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fragment_home_cityselector:
-                Intent intent = new Intent(getContext(), CityCheckActivity.class);
+                intent = new Intent(getContext(), CityCheckActivity.class);
                 startActivityForResult(intent, 366);
                 break;
             case R.id.fragment_home_search:
@@ -182,6 +234,7 @@ public class HomeFragment extends Fragment {
             case R.id.fragment_home_xiaoxi:
                 break;
             case R.id.fragment_home_saosao:
+                showPopwindow(view);
                 break;
             case R.id.fragment_home_fuli:
                 break;
@@ -189,8 +242,91 @@ public class HomeFragment extends Fragment {
                 break;
             case R.id.nearby_map:
                 break;
+            case R.id.nearby_sp1:
+                intent = new Intent(getContext(), NearbyActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("hoem", NearShopping.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+            case R.id.nearby_sp2:
+                intent= new Intent(getContext(), NearbyActivity.class);
+                Bundle bundle2 = new Bundle();
+                bundle2.putSerializable("hoem", NearShopping.class);
+                intent.putExtras(bundle2);
+                startActivity(intent);
+                break;
+            case R.id.nearby_sp3:
+                intent = new Intent(getContext(), NearbyActivity.class);
+                Bundle bundle3 = new Bundle();
+                bundle3.putSerializable("hoem", NearShopping.class);
+                intent.putExtras(bundle3);
+                startActivity(intent);
+                break;
         }
     }
+
+    private void showPopwindow(View view) {
+        View inflate = LayoutInflater.from(getContext()).inflate(R.layout.home_popwindow, null);
+        if (window == null) {
+            window = new PopupWindow(inflate, ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        }
+        window.setOutsideTouchable(true);
+        window.setBackgroundDrawable(new BitmapDrawable());
+        int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        window.showAsDropDown(topHome, width - inflate.getWidth(), 10);
+        window.setTouchInterceptor(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_OUTSIDE && !window.isFocusable()) {
+                    window.dismiss();
+                    return true;
+                }
+                return false;
+            }
+        });
+        LinearLayout scan = inflate.findViewById(R.id.home_pop_sao);
+        LinearLayout pay = inflate.findViewById(R.id.home_pop_pay);
+        scan.setOnClickListener(this);
+        pay.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.home_pop_sao:
+                window.dismiss();
+                Intent intent = new Intent(getContext(), CaptureActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.home_pop_pay:
+                Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+                window.dismiss();
+                break;
+        }
+    }
+
+    @Override
+    public void onSuccess(Object o, int code) {
+        if(code == 0){
+            NearShopping o1 = (NearShopping) o;
+            List<NearShopping.ObjectBean.ListBean> list = o1.getObject().getList();
+            ImageUtils.newInstance().YuanjiaoImage(getContext(),list.get(0).getPicture(),nearbySp1);
+            ImageUtils.newInstance().YuanjiaoImage(getContext(),list.get(1).getPicture(),nearbySp2);
+            ImageUtils.newInstance().YuanjiaoImage(getContext(),list.get(2).getPicture(),nearbySp3);
+        }
+        if(code == 1){
+            item = new ItemMessage();
+
+        }
+    }
+
+    @Override
+    public void onError(int code, String str) {
+
+    }
+
 
     class GlideImagerloader extends ImageLoader {
 
@@ -227,12 +363,17 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == 366 ) {
-            Log.e("-=====", "onActivityResult: "+ 111 );
+        if (resultCode == 366) {
+            Log.e("=====", "onActivityResult: " + 111);
             String city = data.getStringExtra("city");
             if (city != null) {
                 mCitySelector.setText(city);
             }
+        }
+        if (resultCode == RESULT_OK && requestCode == 0) {
+            Bundle extras = data.getExtras();
+            String result = extras.getString("result");
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
     }
 }

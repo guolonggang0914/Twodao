@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference;
  */
 
 
-public class YuanjiaoImageView extends ImageView {
+public class YuanjiaoImageView extends android.support.v7.widget.AppCompatImageView {
 
     private Paint mPaint;
     private Xfermode mXfermode = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);

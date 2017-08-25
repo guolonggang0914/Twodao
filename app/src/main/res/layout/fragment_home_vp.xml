@@ -6,14 +6,12 @@
 
     <GridView
         android:id="@+id/fragment_home_gridview"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:gravity="center"
-        android:horizontalSpacing="32dp"
+        android:paddingLeft="@dimen/x30"
+        android:paddingRight="@dimen/x30"
         android:numColumns="5"
-        android:verticalSpacing="14dp"
+        android:verticalSpacing="@dimen/x28"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     </GridView>
 
 </LinearLayout>

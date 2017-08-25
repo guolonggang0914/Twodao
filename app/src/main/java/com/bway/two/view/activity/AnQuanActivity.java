@@ -1,5 +1,7 @@
 package com.bway.two.view.activity;
 
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,7 +11,6 @@ import com.bway.two.R;
 import com.bway.two.model.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class AnQuanActivity extends BaseActivity implements View.OnClickListener {
 
@@ -27,6 +28,10 @@ public class AnQuanActivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.tuichu)
     Button tuichu;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public int getLayout() {
@@ -35,8 +40,8 @@ public class AnQuanActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void initView() {
-        ButterKnife.bind(this);
     }
+
 
     @Override
     public void initData() {
