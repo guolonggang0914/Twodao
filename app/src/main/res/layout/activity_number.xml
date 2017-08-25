@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:text="@string/dunxin"
+            android:text="22"
             android:textSize="18dp" />
     </RelativeLayout>
 
@@ -92,7 +92,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/number_shixiang"
+        android:text="11"
         android:textColor="#999999"
         android:textSize="14dp"
         android:layout_marginTop="10dp"

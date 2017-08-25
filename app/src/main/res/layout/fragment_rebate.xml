@@ -62,7 +62,7 @@
                  android:layout_marginBottom="34dp"
                  android:textSize="14sp"
                  android:layout_alignParentRight="true"
-                 android:text="@string/query_num"/>
+                 android:text="34"/>
          </RelativeLayout>
 
     </LinearLayout>
@@ -79,7 +79,7 @@
             android:textColor="#666666"
             android:textSize="12sp"
             android:layout_centerVertical="true"
-            android:text="@string/bang_ding"></TextView>
+            android:text="89"></TextView>
         <ImageView
             android:id="@+id/fragment_rebate_chat"
            android:layout_marginLeft="5dp"
@@ -96,7 +96,7 @@
             android:textSize="12sp"
             android:layout_toRightOf="@+id/fragment_rebate_chat"
             android:layout_centerVertical="true"
-            android:text="@string/wei_xin"
+            android:text="微信"
             android:textColor="#666666"/>
         <TextView
             android:id="@+id/fragment_rebate_go_on"
@@ -107,7 +107,7 @@
             android:textColor="#666666"
             android:layout_toRightOf="@+id/fragment_rebate_weixin"
             android:layout_marginLeft="27dp"
-            android:text="@string/go_on_bind"/>
+            android:text="绑定"/>
         <ImageView
             android:layout_toRightOf="@+id/fragment_rebate_go_on"
             android:layout_width="25dp"
@@ -122,7 +122,7 @@
             android:textSize="12sp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/fragment_rebate_zhifu"
-            android:text="@string/zhi_fu"
+            android:text="支付"
             android:textColor="#88CBFF"
             />
         <TextView
@@ -133,7 +133,7 @@
             android:layout_marginRight="15dp"
             android:layout_centerVertical="true"
             android:textSize="12sp"
-            android:text="@string/geng_duo"/>
+            android:text="更多"/>
     </RelativeLayout>
     <TextView
         android:layout_width="match_parent"
