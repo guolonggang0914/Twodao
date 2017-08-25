@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bway.two.R;
+import com.bway.two.model.bean.ItemMessage;
 import com.bway.two.model.bean.NearbyMessage;
 import com.bway.two.view.activity.NearbyActivity;
 import com.bway.two.view.adapter.ContentItemdapter;
@@ -57,7 +58,7 @@ public class ContentFragment extends Fragment implements ContentItemdapter.ItemL
 
     private void initData() {
         for (int i = 0; i < 20; i++) {
-            messageList.add(new NearbyMessage("小可爱西点",45+i,25,100));
+            messageList.add(new NearbyMessage("小可爱西点",45+i,25,100+i));
         }
         adapter = new ContentItemdapter(getActivity(),messageList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
@@ -86,6 +87,13 @@ public class ContentFragment extends Fragment implements ContentItemdapter.ItemL
     public void onItemListener(View view, int positon) {
         Toast.makeText(getActivity(),"--",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), NearbyActivity.class);
+        NearbyMessage nearbyMessage = messageList.get(positon);
+        ItemMessage message = new ItemMessage();
+        message.setName(nearbyMessage.getName());
+        message.setJuli(nearbyMessage.getJuli());
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("home",message);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.bway.two.view.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -32,6 +33,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.bway.two.R;
 import com.bway.two.model.base.BaseActivity;
+import com.bway.two.model.bean.ItemMessage;
 import com.bway.two.model.map.MapBiaoji;
 import com.bway.two.view.adapter.ContentPageAdapter;
 import com.bway.two.view.fragment.NearByContentFragment;
@@ -93,9 +95,17 @@ public class NearbyActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+        initMessage();
 
         initMap();
         initTablayout();
+    }
+
+    private void initMessage() {
+        Intent intent = getIntent();
+        ItemMessage message = (ItemMessage) intent.getSerializableExtra("home");
+        txtNearbyName.setText(message.getName());
+        txtNearbyJuli.setText(message.getJuli()+"m");
     }
 
     private void initMap() {
@@ -119,9 +129,9 @@ public class NearbyActivity extends BaseActivity {
         cbQiehuan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
-                }else{
+                } else {
                     mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
                 }
             }
