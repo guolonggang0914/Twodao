@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -183,6 +184,12 @@ public class NearbyFragment extends Fragment implements IMNearby<TuijianData> {
         baiduMap = mapTop.getMap();
         // 设置可改变地图位置
         baiduMap.setMyLocationEnabled(true);
+        baiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+        // 隐藏logo
+        View child = mapTop.getChildAt(1);
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
+            child.setVisibility(View.INVISIBLE);
+        }
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         List<String> list = locationManager.getProviders(true);
         if (list.contains(LocationManager.GPS_PROVIDER)) {
@@ -305,7 +312,7 @@ public class NearbyFragment extends Fragment implements IMNearby<TuijianData> {
 //        调用百度地图提供的api获取刚转换的Bitmap
         BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(viewBitmap);
         BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.fujindingwei);
+                .fromResource(R.drawable.fujin_select);
         //构建MarkerOption，用于在地图上添加Marker
         OverlayOptions option = new MarkerOptions()
                 .position(point)

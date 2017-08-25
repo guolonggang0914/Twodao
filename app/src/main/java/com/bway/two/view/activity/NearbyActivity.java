@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ZoomControls;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -36,6 +41,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.bway.two.view.fragment.NearbyFragment.getViewBitmap;
 
@@ -60,12 +66,18 @@ public class NearbyActivity extends BaseActivity {
     TextView txtNearbyAdr;
     @BindView(R.id.txt_nearby_juli)
     TextView txtNearbyJuli;
-    private boolean isFirstLocation = true;
+    @BindView(R.id.image_dingwei)
+    ImageView imageDingwei;
+
 
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
+    @BindView(R.id.cb_qiehuan)
+    CheckBox cbQiehuan;
     private BaiduMap mBaiduMap;
 
+    private boolean isRequest = false;//是否手动触发请求定位
+    private boolean isFirstLocation = true;//是否首次定位
     private double lat;
     private double lon;
     private String name;
@@ -89,6 +101,12 @@ public class NearbyActivity extends BaseActivity {
     private void initMap() {
         //获取BaiduMap对象
         mBaiduMap = mapView.getMap();
+        mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+        // 隐藏logo
+        View child = mapView.getChildAt(1);
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
+            child.setVisibility(View.INVISIBLE);
+        }
         //声明LocationClient类
         mLocationClient = new LocationClient(getApplicationContext());
         //注册监听函数
@@ -98,10 +116,50 @@ public class NearbyActivity extends BaseActivity {
         initLocation();
         //开始定位
         mLocationClient.start();
+        cbQiehuan.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_SATELLITE);
+                }else{
+                    mBaiduMap.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+                }
+            }
+        });
     }
 
-    public void setViewListener() {
+    @OnClick({R.id.image_dingwei})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.image_dingwei:
+                requestLocation();
+                LatLng latLng = new LatLng(lat, lon);
+                MapStatus mMapStatus = new MapStatus.Builder()
+                        .target(latLng)
+                        .zoom(18)
+                        .build();
+                //定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+                MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+                //改变地图状态
+                mBaiduMap.animateMapStatus(mMapStatusUpdate);
 
+                break;
+        }
+
+    }
+
+    /**
+     * 手动请求定位的方法
+     */
+    public void requestLocation() {
+        isRequest = true;
+
+        if (mLocationClient != null && mLocationClient.isStarted()) {
+            Toast.makeText(this, "正在定位。。。", Toast.LENGTH_SHORT).show();
+            mLocationClient.requestLocation();
+        } else {
+            Log.d("log", "locClient is null or not started");
+        }
     }
 
     private void initTablayout() {
@@ -116,15 +174,15 @@ public class NearbyActivity extends BaseActivity {
         tabNearby.setTabMode(TabLayout.MODE_FIXED);//设置tab模式，当前为系统默认模式
 
         NearByContentFragment fr1 = NearByContentFragment.getInstense(lon, lat, 1);
-        fr1.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        fr1.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr, txtNearbyJuli);
         NearByContentFragment fr2 = NearByContentFragment.getInstense(lon, lat, 7);
-        fr2.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        fr2.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr, txtNearbyJuli);
         NearByContentFragment fr3 = NearByContentFragment.getInstense(lon, lat, 5);
-        fr3.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        fr3.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr, txtNearbyJuli);
         NearByContentFragment fr4 = NearByContentFragment.getInstense(lon, lat, 2);
-        fr4.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        fr4.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr, txtNearbyJuli);
         NearByContentFragment fr5 = NearByContentFragment.getInstense(lon, lat, -1);
-        fr5.setOnClickListener(vpNearby, relate,txtNearbyName, txtNearbyAdr,txtNearbyJuli);
+        fr5.setOnClickListener(vpNearby, relate, txtNearbyName, txtNearbyAdr, txtNearbyJuli);
         fragments.add(fr1);
         fragments.add(fr2);
         fragments.add(fr3);
@@ -182,7 +240,7 @@ public class NearbyActivity extends BaseActivity {
 //        调用百度地图提供的api获取刚转换的Bitmap
         BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(viewBitmap);
         BitmapDescriptor bitmap = BitmapDescriptorFactory
-                .fromResource(R.drawable.fujindingwei);
+                .fromResource(R.drawable.fujin_select);
         //构建MarkerOption，用于在地图上添加Marker
         OverlayOptions option = new MarkerOptions()
                 .position(point)
@@ -237,6 +295,7 @@ public class NearbyActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
+
 
     /**
      * 实现定位监听 位置一旦有所改变就会调用这个方法

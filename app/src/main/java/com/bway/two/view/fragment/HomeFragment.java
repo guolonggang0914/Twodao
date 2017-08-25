@@ -29,7 +29,6 @@ import com.bway.two.model.bean.NearShopping;
 import com.bway.two.presenter.HomeNearPresenter;
 import com.bway.two.utils.ImageShowUtils.ImageUtils;
 import com.bway.two.utils.ImageShowUtils.MyViewPager;
-import com.bway.two.utils.ImageShowUtils.YuanjiaoImageView;
 import com.bway.two.view.IMview.IMHome;
 import com.bway.two.view.activity.CityCheckActivity;
 import com.bway.two.view.activity.NearbyActivity;
@@ -50,7 +49,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
-import static com.bway.two.presenter.RebatePresenter.TAG;
 
 /**
  * Created by 卢程

@@ -97,7 +97,7 @@
         android:layout_weight="1"
         ></ListView>
     <TextView
-        android:layout_marginTop="@dimen/x_300"
+        android:layout_marginTop="@dimen/x300"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="添加银行卡                                                                      >"
